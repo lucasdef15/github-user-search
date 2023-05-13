@@ -8,7 +8,7 @@ const theme = createTheme({
           fontFamily: "'Space Mono', monospace",
           textTransform: 'none',
           fontSize: '1rem',
-          borderRadius: '10px',
+          borderRadius: '15px',
         },
       },
     },
@@ -81,6 +81,9 @@ const theme = createTheme({
       fontSize: '.938rem',
       lineHeight: '25px',
     },
+  },
+  shapes: {
+    borderRadius: '15px',
   },
 });
 

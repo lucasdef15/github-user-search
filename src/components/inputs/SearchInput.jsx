@@ -1,14 +1,13 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
-import DirectionsIcon from '@mui/icons-material/Directions';
 import iconSearch from '../../assets/icon-search.svg';
-import { Box, Button } from '@mui/material';
+import { Box, Button, useTheme } from '@mui/material';
 
 export default function CustomizedInputBase() {
+  const theme = useTheme();
+
   return (
     <Paper
       component='form'
@@ -16,7 +15,8 @@ export default function CustomizedInputBase() {
         p: '8px',
         display: 'flex',
         alignItems: 'center',
-        borderRadius: '10px',
+        borderRadius: theme.shapes.borderRadius,
+        boxShadow: '0 15px 15px rgba(150, 146, 146, 0.116)',
       }}
     >
       <IconButton sx={{ pr: '15px', pl: '25px' }} aria-label='menu'>

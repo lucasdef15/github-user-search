@@ -16,10 +16,7 @@ const GlobalStyles = createGlobalStyle`
         height: 100vh;
         display: grid;
         place-content: center;
-        background-color: #F2F2F2
-    }
-    img{
-        max-width: 100%;
+        background-color: #f6f8ff
     }
 `;
 
