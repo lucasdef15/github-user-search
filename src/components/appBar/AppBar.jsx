@@ -1,10 +1,5 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import iconMoon from '../../assets/icon-moon.svg';
-import { Stack } from '@mui/material';
+import { Typography, Button, Toolbar, Box, AppBar } from '@mui/material';
+import { RiMoonFill } from 'react-icons/ri';
 
 export default function ButtonAppBar() {
   return (
@@ -24,15 +19,28 @@ export default function ButtonAppBar() {
             },
           }}
         >
-          <Typography variant='h1' component='div' sx={{ flexGrow: 1 }}>
+          <Typography
+            variant='h1'
+            component='div'
+            sx={{ flexGrow: 1, fontSize: '1.625rem' }}
+          >
             devfinder
           </Typography>
-          <Stack direction='row' spacing={2}>
-            <Typography variant='h4' color='secondary.light'>
-              DARK
-            </Typography>
-            <img src={iconMoon} alt='moon' />
-          </Stack>
+          <Button
+            endIcon={<RiMoonFill />}
+            size='large'
+            sx={{
+              color: 'secondary.light',
+              fontSize: '13px',
+              letterSpacing: '2.5px',
+              '&:hover': {
+                color: 'black',
+                bgcolor: 'transparent',
+              },
+            }}
+          >
+            DARK
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
