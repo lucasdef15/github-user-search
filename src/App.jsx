@@ -8,7 +8,8 @@ function App() {
     <Stack
       sx={{
         width: '90%',
-        maxWidth: { sm: '648px', md: '730px' },
+        maxWidth: { sm: '710px', md: '810px' },
+        minWidth: '345px',
         margin: '0 auto',
       }}
       spacing={3}

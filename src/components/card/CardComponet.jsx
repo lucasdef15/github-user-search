@@ -19,14 +19,20 @@ export default function CardComponent() {
   return (
     <Paper
       sx={{
-        py: 5,
+        py: { xs: 5, md: 6 },
         px: { xs: 3, sm: 5 },
         borderRadius: theme.shapes.borderRadius,
       }}
     >
-      <Grid container spacing={{ xs: 1, sm: 3 }}>
-        <Grid container item xs={12}>
-          <Grid item xs={4}>
+      <Grid container spacing={{ xs: 1, sm: 3 }} justifyContent='flex-end'>
+        <Grid
+          container
+          item
+          xs={12}
+          spacing={{ xs: 7, sm: 15, md: 3 }}
+          alignItems={{ sm: 'flex-end', md: 'flex-start' }}
+        >
+          <Grid item xs={3} md={3}>
             <Avatar
               alt='avatar'
               src={catAvatar}
@@ -40,23 +46,30 @@ export default function CardComponent() {
               }}
             />
           </Grid>
-          <Grid item xs={8}>
-            <Stack>
-              <Typography
-                variant='h1'
-                sx={{ fontSize: { xs: '1rem', sm: '1.625rem' } }}
-              >
-                The Octocat
-              </Typography>
-              <Link
-                href='#'
-                underline='hover'
-                variant='h3'
-                color='primary.main'
-                sx={{ fontSize: { xs: '1rem', sm: '1rem' } }}
-              >
-                @octocat
-              </Link>
+          <Grid item xs={9} md={9}>
+            <Stack
+              direction={{ md: 'row' }}
+              sx={{ flexWrap: 'wrap' }}
+              justifyContent='space-between'
+              spacing={{ xs: 0.5, sm: 1 }}
+            >
+              <Stack spacing={{ sm: 1 }}>
+                <Typography
+                  variant='h1'
+                  sx={{ fontSize: { xs: '1rem', sm: '1.625rem' } }}
+                >
+                  The Octocat
+                </Typography>
+                <Link
+                  href='#'
+                  underline='hover'
+                  variant='h3'
+                  color='primary.main'
+                  sx={{ fontSize: { xs: '1rem', sm: '1rem' } }}
+                >
+                  @octocat
+                </Link>
+              </Stack>
               <Typography
                 color='secondary.light'
                 sx={{ fontSize: { xs: '.813rem', sm: '.938rem' } }}
@@ -64,10 +77,28 @@ export default function CardComponent() {
                 Joined 25 Jan 2011
               </Typography>
             </Stack>
+            <Grid
+              item
+              md={12}
+              sx={{ mt: 2, display: { xs: 'none', md: 'flex' } }}
+            >
+              <Typography
+                color='secondary.light'
+                sx={{ fontSize: { xs: '.813rem', sm: '.938rem' } }}
+              >
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+                odio. Quisque volutpat mattis eros.
+              </Typography>
+            </Grid>
           </Grid>
         </Grid>
 
-        <Grid item xs={12} sx={{ mt: { xs: 3, sm: 0 } }}>
+        <Grid
+          item
+          xs={12}
+          md={9}
+          sx={{ mt: { xs: 3, sm: 0 }, display: { md: 'none' } }}
+        >
           <Typography
             color='secondary.light'
             sx={{ fontSize: { xs: '.813rem', sm: '.938rem' } }}
@@ -77,18 +108,16 @@ export default function CardComponent() {
           </Typography>
         </Grid>
 
-        <Grid item xs={0} md={3} />
-
         <Grid item xs={12} md={9}>
           <Stack
             direction='row'
             justifyContent={{ xs: 'center', sm: 'flex-start' }}
             alignItems='center'
-            spacing={{ xs: 4, sm: 12 }}
+            spacing={{ xs: 4, sm: 12, md: 10 }}
             sx={{
-              px: 4,
+              px: 5,
               py: 2,
-              my: { xs: 1, sm: 0 },
+              my: { xs: 1, sm: 0, md: 1 },
               boxShadow: 'none',
               bgcolor: 'lightPrimary.main',
               borderRadius: theme.shapes.borderRadius,
@@ -151,44 +180,41 @@ export default function CardComponent() {
           </Stack>
         </Grid>
 
-        <Grid item xs={0} md={3} />
-
-        <Grid
-          item
-          container
-          xs={12}
-          sm={5}
-          justifyContent='space-between'
-          alignItems='center'
-          spacing={{ md: 1 }}
-        >
-          <Grid item xs={12} sm={5}>
-            <Button color='secondary' startIcon={<MdLocationOn />}>
-              <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
-                San Francisco
-              </Typography>
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={5}>
-            <Button color='secondary' startIcon={<BsTwitter />}>
-              <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
-                Not Available
-              </Typography>
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={5}>
-            <Button color='secondary' startIcon={<BsLink45Deg />}>
-              <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
-                https://github.blog
-              </Typography>
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={5}>
-            <Button color='secondary' startIcon={<BsFillBuildingsFill />}>
-              <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
-                @github
-              </Typography>
-            </Button>
+        <Grid item xs={12} md={9}>
+          <Grid
+            container
+            justifyContent='space-between'
+            alignItems='center'
+            spacing={{ sm: 0.5 }}
+          >
+            <Grid item xs={12} sm={5}>
+              <Button color='secondary' startIcon={<MdLocationOn />}>
+                <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
+                  San Francisco
+                </Typography>
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={5}>
+              <Button color='secondary' startIcon={<BsTwitter />}>
+                <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
+                  Not Available
+                </Typography>
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={5}>
+              <Button color='secondary' startIcon={<BsLink45Deg />}>
+                <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
+                  https://github.blog
+                </Typography>
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={5}>
+              <Button color='secondary' startIcon={<BsFillBuildingsFill />}>
+                <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
+                  @github
+                </Typography>
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

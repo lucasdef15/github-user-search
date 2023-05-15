@@ -10,8 +10,8 @@ const theme = createTheme({
           fontSize: 'clamp(14px, 1.5vw, 1rem)',
           borderRadius: '15px',
           '& svg': {
-            width: '24px',
-            height: '24px',
+            width: '23px',
+            height: '23px',
             marginRight: '5px',
           },
           '@media (min-width: 600px)': {

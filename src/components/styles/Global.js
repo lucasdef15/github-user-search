@@ -3,7 +3,6 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
     *{
         box-sizing: border-box;
-        /* background-color: #ff00004f; */
     }
     body{
         width: 100vw;
@@ -25,10 +24,11 @@ const GlobalStyles = createGlobalStyle`
         body{
             place-items: start;
             margin-bottom: 4em;
-            overflow: hidden;
+            overflow-x: hidden;
         }
         #root{
             place-content: start;
+            margin-top: 1.5em;
         }
     }
 `;
