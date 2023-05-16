@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
         padding: 0;
         display: flex;
         place-items: center;
-        background-color: #f6f8ff;
+        background-color: ${(props) => (props.dark ? '#141D2F' : '#f6f8ff')};
     }
     #root {
         width: 100%;

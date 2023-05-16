@@ -22,6 +22,7 @@ export default function ButtonAppBar() {
           <Typography
             variant='h1'
             component='div'
+            color='darkPrimary.main'
             sx={{ flexGrow: 1, fontSize: '1.625rem' }}
           >
             devfinder

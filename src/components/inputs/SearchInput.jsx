@@ -1,12 +1,21 @@
-import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import Icon from '@mui/material/IconButton';
 import { CiSearch } from 'react-icons/ci';
-import { Button, useTheme } from '@mui/material';
+import { Button, useTheme, InputBase, Paper, Stack } from '@mui/material';
+import { useState, useContext } from 'react';
+import DataContext from '../../contexts/UserContext';
 
 export default function CustomizedInputBase() {
+  const { loadUser } = useContext(DataContext);
   const theme = useTheme();
+  const [searchInput, setSearchInput] = useState('');
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  const handleSearchClick = () => {
+    loadUser(searchInput);
+    setSearchInput('');
+  };
 
   return (
     <Paper
@@ -17,24 +26,26 @@ export default function CustomizedInputBase() {
         alignItems: 'center',
         borderRadius: theme.shapes.borderRadius,
         boxShadow: '0 15px 15px rgba(150, 146, 146, 0.116)',
+        bgcolor: 'darkPrimary.light',
       }}
     >
-      <Icon
+      <Stack
+        alignItems='center'
+        justifyContent='center'
         sx={{
           mr: { xs: '0', sm: '15px' },
-          ml: { xs: '0', sm: '25px' },
+          ml: { xs: '7px', sm: '25px' },
           p: 0,
           cursor: 'default',
           '& svg': {
-            width: { xs: '28px', sm: '33px' },
-            height: { xs: '28px', sm: '33px' },
+            width: { xs: '26px', sm: '30px' },
+            height: { xs: '26px', sm: '30px' },
           },
         }}
-        color='primary'
-        size='large'
+        color='primary.main'
       >
         <CiSearch />
-      </Icon>
+      </Stack>
       <InputBase
         sx={{
           ml: 1,
@@ -42,6 +53,8 @@ export default function CustomizedInputBase() {
         }}
         placeholder='Search GitHub username...'
         inputProps={{ 'aria-label': 'search github username' }}
+        value={searchInput}
+        onChange={handleInputChange}
       />
       <Button
         variant='contained'
@@ -50,6 +63,7 @@ export default function CustomizedInputBase() {
           py: 1.4,
           borderRadius: theme.shapes.borderRadius,
         }}
+        onClick={handleSearchClick}
       >
         Search
       </Button>

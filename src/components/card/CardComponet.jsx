@@ -13,15 +13,27 @@ import { MdLocationOn } from 'react-icons/md';
 import { BsLink45Deg } from 'react-icons/bs';
 import { BsTwitter } from 'react-icons/bs';
 import { BsFillBuildingsFill } from 'react-icons/bs';
+import DataContext from '../../contexts/UserContext';
+import { useContext } from 'react';
 
 export default function CardComponent() {
+  const { data, formatDate } = useContext(DataContext);
+
   const theme = useTheme();
+
+  const hasAllInfo = data ? Boolean(
+    data.location || data.company || data.twitter_username || data.blog
+  ) : true;
+
+  console.log(hasAllInfo);
+
   return (
     <Paper
       sx={{
         py: { xs: 5, md: 6 },
-        px: { xs: 3, sm: 5 },
+        px: { xs: 3, sm: 6 },
         borderRadius: theme.shapes.borderRadius,
+        bgcolor: 'darkPrimary.light',
       }}
     >
       <Grid container spacing={{ xs: 1, sm: 3 }} justifyContent='flex-end'>
@@ -35,7 +47,7 @@ export default function CardComponent() {
           <Grid item xs={3} md={3}>
             <Avatar
               alt='avatar'
-              src={catAvatar}
+              src={data ? data.avatar_url : catAvatar}
               sx={{
                 width: { xs: '70px', sm: '117px' },
                 height: { xs: '70px', sm: '117px' },
@@ -51,30 +63,32 @@ export default function CardComponent() {
               direction={{ md: 'row' }}
               sx={{ flexWrap: 'wrap' }}
               justifyContent='space-between'
-              spacing={{ xs: 0.5, sm: 1 }}
+              spacing={{ xs: 0.5, sm: 0.3 }}
             >
-              <Stack spacing={{ sm: 1 }}>
+              <Stack spacing={{ sm: 1.5 }}>
                 <Typography
                   variant='h1'
+                  color='darkPrimary.main'
                   sx={{ fontSize: { xs: '1rem', sm: '1.625rem' } }}
                 >
-                  The Octocat
+                  {data ? data.name : 'The Octocat'}
                 </Typography>
                 <Link
-                  href='#'
+                  href={data ? data.html_url : '#'}
+                  target='_blank'
                   underline='hover'
                   variant='h3'
                   color='primary.main'
                   sx={{ fontSize: { xs: '1rem', sm: '1rem' } }}
                 >
-                  @octocat
+                  {data ? `@${data.login}` : '@octocat'}
                 </Link>
               </Stack>
               <Typography
-                color='secondary.light'
+                color='secondary.dark'
                 sx={{ fontSize: { xs: '.813rem', sm: '.938rem' } }}
               >
-                Joined 25 Jan 2011
+                {data ? formatDate(data.created_at) : 'Joined 25 Jan 2011'}
               </Typography>
             </Stack>
             <Grid
@@ -83,16 +97,29 @@ export default function CardComponent() {
               sx={{ mt: 2, display: { xs: 'none', md: 'flex' } }}
             >
               <Typography
-                color='secondary.light'
-                sx={{ fontSize: { xs: '.813rem', sm: '.938rem' } }}
+                color={`${
+                  data
+                    ? data.bio === null
+                      ? 'secondary.light'
+                      : 'secondary.dark'
+                    : 'secondary.light'
+                }`}
+                sx={{
+                  fontSize: {
+                    xs: '.813rem',
+                    sm: '.938rem',
+                  },
+                }}
               >
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
-                odio. Quisque volutpat mattis eros.
+                {data
+                  ? data.bio === null
+                    ? 'This profile has no bio'
+                    : data.bio
+                  : 'This profile has no bio'}
               </Typography>
             </Grid>
           </Grid>
         </Grid>
-
         <Grid
           item
           xs={12}
@@ -100,14 +127,27 @@ export default function CardComponent() {
           sx={{ mt: { xs: 3, sm: 0 }, display: { md: 'none' } }}
         >
           <Typography
-            color='secondary.light'
-            sx={{ fontSize: { xs: '.813rem', sm: '.938rem' } }}
+            color={`${
+              data
+                ? data.bio === null
+                  ? 'secondary.light'
+                  : 'secondary.dark'
+                : 'secondary.light'
+            }`}
+            sx={{
+              fontSize: {
+                xs: '.813rem',
+                sm: '.938rem',
+              },
+            }}
           >
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
-            odio. Quisque volutpat mattis eros.
+            {data
+              ? data.bio === null
+                ? 'This profile has no bio'
+                : data.bio
+              : 'This profile has no bio'}
           </Typography>
         </Grid>
-
         <Grid item xs={12} md={9}>
           <Stack
             direction='row'
@@ -136,9 +176,10 @@ export default function CardComponent() {
               </Typography>
               <Typography
                 variant='h2'
+                color='darkPrimary.main'
                 sx={{ fontSize: { xs: '1rem', sm: '1.375rem' } }}
               >
-                8
+                {data ? data.public_repos : 8}
               </Typography>
             </Stack>
             <Stack
@@ -154,9 +195,10 @@ export default function CardComponent() {
               </Typography>
               <Typography
                 variant='h2'
+                color='darkPrimary.main'
                 sx={{ fontSize: { xs: '1rem', sm: '1.375rem' } }}
               >
-                3938
+                {data ? data.followers : 3938}
               </Typography>
             </Stack>
             <Stack
@@ -172,51 +214,135 @@ export default function CardComponent() {
               </Typography>
               <Typography
                 variant='h2'
+                color='darkPrimary.main'
                 sx={{ fontSize: { xs: '1rem', sm: '1.375rem' } }}
               >
-                9
+                {data ? data.following : 9}
               </Typography>
             </Stack>
           </Stack>
         </Grid>
-
-        <Grid item xs={12} md={9}>
-          <Grid
-            container
-            justifyContent='space-between'
-            alignItems='center'
-            spacing={{ sm: 0.5 }}
-          >
-            <Grid item xs={12} sm={5}>
-              <Button color='secondary' startIcon={<MdLocationOn />}>
-                <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
-                  San Francisco
-                </Typography>
-              </Button>
-            </Grid>
-            <Grid item xs={12} sm={5}>
-              <Button color='secondary' startIcon={<BsTwitter />}>
-                <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
-                  Not Available
-                </Typography>
-              </Button>
-            </Grid>
-            <Grid item xs={12} sm={5}>
-              <Button color='secondary' startIcon={<BsLink45Deg />}>
-                <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
-                  https://github.blog
-                </Typography>
-              </Button>
-            </Grid>
-            <Grid item xs={12} sm={5}>
-              <Button color='secondary' startIcon={<BsFillBuildingsFill />}>
-                <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
-                  @github
-                </Typography>
-              </Button>
+        {hasAllInfo && (
+          <Grid item xs={12} md={9}>
+            <Grid
+              container
+              justifyContent='space-between'
+              alignItems='center'
+              spacing={{ sm: 0.5 }}
+            >
+              <Grid item xs={12} sm={5}>
+                <Button
+                  sx={{
+                    color: `${
+                      data
+                        ? data.location === null
+                          ? 'secondary.light'
+                          : 'secondary.main'
+                        : 'secondary.main'
+                    }`,
+                  }}
+                  startIcon={<MdLocationOn />}
+                >
+                  <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
+                    {data
+                      ? data.location === null
+                        ? 'Not Available'
+                        : data.location
+                      : 'San Francisco'}
+                  </Typography>
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <Button
+                  sx={{
+                    color: `${
+                      data
+                        ? data.twitter_username === null
+                          ? 'secondary.light'
+                          : 'secondary.main'
+                        : 'secondary.light'
+                    }`,
+                  }}
+                  startIcon={<BsTwitter />}
+                >
+                  <Typography sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}>
+                    {data
+                      ? data.twitter_username === null
+                        ? 'Not Available'
+                        : data.twitter_username
+                      : 'Not Available'}
+                  </Typography>
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <Button
+                  sx={{
+                    color: `${
+                      data
+                        ? data.blog === ''
+                          ? 'secondary.light'
+                          : 'secondary.main'
+                        : 'secondary.main'
+                    }`,
+                  }}
+                  startIcon={<BsLink45Deg />}
+                >
+                  <Link
+                    href={data ? data.blog : '#'}
+                    target='_blank'
+                    underline='hover'
+                    variant='h3'
+                    color='inherit'
+                    sx={{
+                      fontSize: {
+                        xs: '.813',
+                        sm: '.938rem',
+                      },
+                    }}
+                  >
+                    {data
+                      ? data.blog === '' || data.blog === null
+                        ? 'Not Available'
+                        : data.blog
+                      : 'https://github.blog'}
+                  </Link>
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <Button
+                  sx={{
+                    color: `${
+                      data
+                        ? data.company === null
+                          ? 'secondary.light'
+                          : 'secondary.main'
+                        : 'secondary.main'
+                    }`,
+                  }}
+                  startIcon={<BsFillBuildingsFill />}
+                >
+                  <Typography
+                    color='inherit'
+                    sx={{
+                      fontSize: {
+                        xs: '.813',
+                        sm: '.938rem',
+                      },
+                    }}
+                  >
+                    {data
+                      ? data.company === null || data.company.length === 0
+                        ? 'Not Available'
+                        : data.company.length >= 12
+                        ? `${data.company.slice(0, 11)}...`
+                        : data.company
+                      : '@github'}
+                  </Typography>
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        )}
       </Grid>
     </Paper>
   );
