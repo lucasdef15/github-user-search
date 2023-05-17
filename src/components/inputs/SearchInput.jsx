@@ -1,11 +1,23 @@
 import { CiSearch } from 'react-icons/ci';
-import { Button, useTheme, InputBase, Paper, Stack } from '@mui/material';
-import { useState, useContext } from 'react';
+import {
+  Button,
+  useTheme,
+  InputBase,
+  Stack,
+  FormControl,
+  FormHelperText,
+} from '@mui/material';
+import { useState, useContext, useRef } from 'react';
 import DataContext from '../../contexts/UserContext';
 
 export default function CustomizedInputBase() {
-  const { loadUser } = useContext(DataContext);
+  const { loadUser, dark, errorStatus, helperText, setIsLoading } =
+    useContext(DataContext);
+
   const theme = useTheme();
+
+  const myInputRef = useRef(null);
+
   const [searchInput, setSearchInput] = useState('');
 
   const handleInputChange = (event) => {
@@ -15,18 +27,23 @@ export default function CustomizedInputBase() {
   const handleSearchClick = () => {
     loadUser(searchInput);
     setSearchInput('');
+    setIsLoading(true);
+    myInputRef.current.focus();
   };
 
   return (
-    <Paper
-      component='form'
+    <FormControl
+      error={errorStatus}
+      variant='standard'
       sx={{
         p: '8px',
-        display: 'flex',
-        alignItems: 'center',
+        flexDirection: 'row',
         borderRadius: theme.shapes.borderRadius,
-        boxShadow: '0 15px 15px rgba(150, 146, 146, 0.116)',
+        boxShadow: `${
+          dark ? 'none' : '0 15px 15px rgba(150, 146, 146, 0.116)'
+        }`,
         bgcolor: 'darkPrimary.light',
+        position: 'relative',
       }}
     >
       <Stack
@@ -50,12 +67,28 @@ export default function CustomizedInputBase() {
         sx={{
           ml: 1,
           flex: 1,
+          color: 'darkPrimary.main',
         }}
+        inputRef={myInputRef}
         placeholder='Search GitHub username...'
-        inputProps={{ 'aria-label': 'search github username' }}
+        inputProps={{ 'aria-label': 'search-github-username' }}
         value={searchInput}
         onChange={handleInputChange}
       />
+      <FormHelperText
+        sx={{
+          position: 'absolute',
+          top: { xs: '58px', sm: '32%' },
+          left: { xs: '70%', sm: '64.5%', md: '70%' },
+          bgcolor: 'transparent',
+          fontSize: '15px',
+          fontWeight: 'bold',
+          fontFamily: "'Space Mono', monospace",
+        }}
+      >
+        {helperText}
+      </FormHelperText>
+
       <Button
         variant='contained'
         sx={{
@@ -67,6 +100,6 @@ export default function CustomizedInputBase() {
       >
         Search
       </Button>
-    </Paper>
+    </FormControl>
   );
 }

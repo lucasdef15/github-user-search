@@ -1,10 +1,6 @@
 import { createTheme } from '@mui/material';
-import { useContext } from 'react';
-import DataContext from '../contexts/UserContext';
 
-function ThemeProvider() {
-  const { dark } = useContext(DataContext);
-
+function Theme(dark) {
   const theme = createTheme({
     components: {
       MuiButton: {
@@ -15,8 +11,8 @@ function ThemeProvider() {
             fontSize: 'clamp(14px, 1.5vw, 1rem)',
             borderRadius: '15px',
             '& svg': {
-              width: '23px',
-              height: '23px',
+              width: '22px',
+              height: '22px',
               marginRight: '5px',
             },
             '@media (min-width: 600px)': {
@@ -32,16 +28,15 @@ function ThemeProvider() {
           input: {
             fontSize: '1.125rem',
             '&::-webkit-input-placeholder': {
-              color: '#4b6a9b',
+              color: `${dark ? '#ffffff' : '#4b6a9b'}`,
               opacity: 1,
-              // fontSize: 'clamp(13px, 1.5vw, 1.125rem)',
             },
             '&::placeholder': {
-              color: '#4b6a9b',
+              color: `${dark ? '#ffffff' : '#4b6a9b'}`,
               opacity: 1,
-              // fontSize: 'clamp(13px, 1.5vw, 1.125rem)',
             },
             '@media (max-width: 600px)': {
+              fontSize: '13px',
               '&::placeholder': {
                 fontSize: '13px',
               },
@@ -51,28 +46,29 @@ function ThemeProvider() {
       },
     },
     palette: {
-      mode: 'light',
       primary: {
         main: '#0079ff',
       },
       secondary: {
         main: `${dark ? '#ffffff' : '#4b6a9b'}`,
-        light: `${dark ? '#dadada' : '#A5B4CC'}`,
+        light: `${dark ? '#ffffff' : '#A5B4CC'}`,
         dark: `${dark ? '#ffffff' : '#697c9a'}`,
       },
       lightPrimary: {
         main: `${dark ? '#141d2f' : '#f6f8ff'}`,
-        light: '#fefefe',
+        light: `${dark ? '#8E94A3' : '#A5B4CC'}`,
       },
       darkPrimary: {
         main: `${dark ? '#ffffff' : '#141d2f'}`,
         light: `${dark ? '#1e2a47' : '#ffffff'}`,
         dark: '#1e2a47',
       },
+      error: {
+        main: '#F74646',
+      },
     },
     typography: {
       h1: {
-        fontFamily: "'Space Mono', monospace",
         fontWeight: 'Bold',
         fontSize: 'clamp(1rem, 2.5vw, 1.625rem)',
         lineHeight: 'clamp(20px, 2.5vw, 38px)',
@@ -110,4 +106,4 @@ function ThemeProvider() {
   return theme;
 }
 
-export default ThemeProvider;
+export default Theme;

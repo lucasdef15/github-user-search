@@ -1,7 +1,12 @@
 import { Typography, Button, Toolbar, Box, AppBar } from '@mui/material';
 import { RiMoonFill } from 'react-icons/ri';
+import { BsFillSunFill } from 'react-icons/bs';
+import { useContext } from 'react';
+import DataContext from '../../contexts/UserContext';
 
 export default function ButtonAppBar() {
+  const { toggleDarkMode, dark } = useContext(DataContext);
+
   return (
     <Box sx={{ flexGrow: 1, p: 0 }}>
       <AppBar
@@ -28,19 +33,20 @@ export default function ButtonAppBar() {
             devfinder
           </Typography>
           <Button
-            endIcon={<RiMoonFill />}
+            endIcon={dark ? <BsFillSunFill /> : <RiMoonFill />}
             size='large'
             sx={{
               color: 'secondary.light',
               fontSize: '13px',
               letterSpacing: '2.5px',
               '&:hover': {
-                color: 'black',
+                color: `${dark ? '#90a4d4' : 'secondary.main'}`,
                 bgcolor: 'transparent',
               },
             }}
+            onClick={toggleDarkMode}
           >
-            DARK
+            {dark ? 'LIGHT' : 'DARK'}
           </Button>
         </Toolbar>
       </AppBar>
