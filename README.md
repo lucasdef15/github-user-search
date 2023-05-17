@@ -29,10 +29,10 @@ Users should be able to:
 
 ### Screenshot
 
-![](/page1.png)
-![](/page2.png)
-![](/page3.png)
-![](/page4.png)
+![](./public/page1.png)
+![](./public/page2.png)
+![](./public/page3.png)
+![](./public/page4.png)
 
 ### Links
 
