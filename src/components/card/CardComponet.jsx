@@ -78,7 +78,13 @@ export default function CardComponent() {
                     color='darkPrimary.main'
                     sx={{ fontSize: { xs: '1rem', sm: '1.625rem' } }}
                   >
-                    {data ? data.name : 'The Octocat'}
+                    {data
+                      ? data.name === null || data.name.length === 0
+                        ? 'Not Available'
+                        : data.name.length >= 16
+                        ? `${data.name.slice(0, 16)}...`
+                        : data.name
+                      : 'The Octocat'}
                   </Typography>
                   <Link
                     href={data ? data.html_url : '#'}
@@ -242,7 +248,7 @@ export default function CardComponent() {
                 spacing={[0, 0.5]}
                 sx={{ pr: 4.5 }}
               >
-                <Grid item xs={12} sm={5}>
+                <Grid item xs={12} sm={6}>
                   <Button
                     sx={{
                       color: `${
@@ -256,11 +262,16 @@ export default function CardComponent() {
                     startIcon={<MdLocationOn />}
                   >
                     <Typography
-                      sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}
+                      sx={{
+                        fontSize: { xs: '.813', sm: '.938rem' },
+                        whiteSpace: 'nowrap',
+                      }}
                     >
                       {data
                         ? data.location === null
                           ? 'Not Available'
+                          : data.location.length >= 14
+                          ? `${data.location.slice(0, 14)}...`
                           : data.location
                         : 'San Francisco'}
                     </Typography>
@@ -290,7 +301,7 @@ export default function CardComponent() {
                     </Typography>
                   </Button>
                 </Grid>
-                <Grid item xs={12} sm={5}>
+                <Grid item xs={12} sm={6}>
                   <Button
                     sx={{
                       color: `${
@@ -313,14 +324,15 @@ export default function CardComponent() {
                         fontSize: {
                           xs: '.813',
                           sm: '.938rem',
+                          whiteSpace: 'nowrap',
                         },
                       }}
                     >
                       {data
                         ? data.blog === '' || data.blog === null
                           ? 'Not Available'
-                          : data.blog.length >= 20
-                          ? `${data.blog.slice(0, 20)}...`
+                          : data.blog.length >= 19
+                          ? `${data.blog.slice(0, 19)}...`
                           : data.blog
                         : 'https://github.blog'}
                     </Link>
@@ -352,8 +364,8 @@ export default function CardComponent() {
                       {data
                         ? data.company === null || data.company.length === 0
                           ? 'Not Available'
-                          : data.company.length >= 12
-                          ? `${data.company.slice(0, 11)}...`
+                          : data.company.length >= 15
+                          ? `${data.company.slice(0, 15)}...`
                           : data.company
                         : '@github'}
                     </Typography>

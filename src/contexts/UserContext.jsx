@@ -1,4 +1,5 @@
 import { useState, createContext } from 'react';
+import useLocalStorage from '../components/hooks/useLocalStorage';
 import axios from 'axios';
 
 const API_URL = 'https://api.github.com/users/';
@@ -7,7 +8,7 @@ const UserContext = createContext({});
 
 export const DataProvider = ({ children }) => {
   const [data, setData] = useState(null);
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useLocalStorage('darkMode', false);
   const [errorStatus, setErrorStatus] = useState(false);
   const [helperText, setHelperText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
