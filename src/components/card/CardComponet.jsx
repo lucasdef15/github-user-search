@@ -6,6 +6,7 @@ import {
   Link,
   Stack,
   Button,
+  Box,
 } from '@mui/material';
 import catAvatar from '../../assets/octocat.svg';
 import { useTheme } from '@mui/material/styles';
@@ -80,7 +81,7 @@ export default function CardComponent() {
                   >
                     {data
                       ? data.name === null || data.name.length === 0
-                        ? 'Not Available'
+                        ? data.login.replace('@', '')
                         : data.name.length >= 16
                         ? `${data.name.slice(0, 16)}...`
                         : data.name
@@ -173,7 +174,7 @@ export default function CardComponent() {
               sx={{
                 px: 4.5,
                 py: 2,
-                my: { xs: 1, sm: 0 },
+                my: { xs: 2, sm: 0 },
                 mb: { md: 0.5 },
                 boxShadow: 'none',
                 bgcolor: 'lightPrimary.main',
@@ -182,57 +183,63 @@ export default function CardComponent() {
             >
               <Stack
                 justifyContent='center'
+                spacing={0.3}
                 alignItems={{ xs: 'center', sm: 'flex-start' }}
               >
                 <Typography
-                  variant='h4'
                   color='secondary.main'
                   sx={{ fontSize: { xs: '.688rem', sm: '.819rem' } }}
                 >
                   Repos
                 </Typography>
                 <Typography
-                  variant='h2'
                   color='darkPrimary.main'
-                  sx={{ fontSize: { xs: '1rem', sm: '1.375rem' } }}
+                  sx={{
+                    fontSize: { xs: '1rem', sm: '1.375rem' },
+                    fontWeight: 'bold',
+                  }}
                 >
                   {data ? data.public_repos : 8}
                 </Typography>
               </Stack>
               <Stack
                 justifyContent='center'
+                spacing={0.3}
                 alignItems={{ xs: 'center', sm: 'flex-start' }}
               >
                 <Typography
-                  variant='h4'
                   color='secondary.main'
                   sx={{ fontSize: { xs: '.688rem', sm: '.819rem' } }}
                 >
                   Followers
                 </Typography>
                 <Typography
-                  variant='h2'
                   color='darkPrimary.main'
-                  sx={{ fontSize: { xs: '1rem', sm: '1.375rem' } }}
+                  sx={{
+                    fontSize: { xs: '1rem', sm: '1.375rem' },
+                    fontWeight: 'bold',
+                  }}
                 >
                   {data ? data.followers : 3938}
                 </Typography>
               </Stack>
               <Stack
                 justifyContent='center'
+                spacing={0.3}
                 alignItems={{ xs: 'center', sm: 'flex-start' }}
               >
                 <Typography
-                  variant='h4'
                   color='secondary.main'
                   sx={{ fontSize: { xs: '.688rem', sm: '.819rem' } }}
                 >
                   Following
                 </Typography>
                 <Typography
-                  variant='h2'
                   color='darkPrimary.main'
-                  sx={{ fontSize: { xs: '1rem', sm: '1.375rem' } }}
+                  sx={{
+                    fontSize: { xs: '1rem', sm: '1.375rem' },
+                    fontWeight: 'bold',
+                  }}
                 >
                   {data ? data.following : 9}
                 </Typography>
@@ -245,11 +252,14 @@ export default function CardComponent() {
                 container
                 justifyContent='space-between'
                 alignItems='center'
-                spacing={[0, 0.5]}
+                spacing={1.7}
                 sx={{ pr: 4.5 }}
               >
                 <Grid item xs={12} sm={6}>
-                  <Button
+                  <Stack
+                    direction='row'
+                    alignItems='center'
+                    spacing={2}
                     sx={{
                       color: `${
                         data
@@ -258,9 +268,13 @@ export default function CardComponent() {
                             : 'secondary.main'
                           : 'secondary.main'
                       }`,
+                      '& svg': {
+                        width: '25px',
+                        height: '25px',
+                      },
                     }}
-                    startIcon={<MdLocationOn />}
                   >
+                    <MdLocationOn />
                     <Typography
                       sx={{
                         fontSize: { xs: '.813', sm: '.938rem' },
@@ -275,10 +289,13 @@ export default function CardComponent() {
                           : data.location
                         : 'San Francisco'}
                     </Typography>
-                  </Button>
+                  </Stack>
                 </Grid>
                 <Grid item xs={12} sm={5}>
-                  <Button
+                  <Stack
+                    direction='row'
+                    alignItems='center'
+                    spacing={2}
                     sx={{
                       color: `${
                         data
@@ -287,22 +304,44 @@ export default function CardComponent() {
                             : 'secondary.main'
                           : 'lightPrimary.light'
                       }`,
+                      '& svg': {
+                        width: '25px',
+                        height: '25px',
+                      },
                     }}
-                    startIcon={<BsTwitter />}
                   >
-                    <Typography
-                      sx={{ fontSize: { xs: '.813', sm: '.938rem' } }}
+                    <BsTwitter />
+                    <Link
+                      href={
+                        data
+                          ? `https://twitter.com/${data.twitter_username}`
+                          : '#'
+                      }
+                      target='_blank'
+                      underline='hover'
+                      variant='h3'
+                      color='inherit'
+                      sx={{
+                        fontSize: {
+                          xs: '.813',
+                          sm: '.938rem',
+                          whiteSpace: 'nowrap',
+                        },
+                      }}
                     >
                       {data
                         ? data.twitter_username === null
                           ? 'Not Available'
                           : data.twitter_username
                         : 'Not Available'}
-                    </Typography>
-                  </Button>
+                    </Link>
+                  </Stack>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Button
+                  <Stack
+                    direction='row'
+                    alignItems='center'
+                    spacing={2}
                     sx={{
                       color: `${
                         data
@@ -311,9 +350,14 @@ export default function CardComponent() {
                             : 'secondary.main'
                           : 'secondary.main'
                       }`,
+                      '& svg': {
+                        width: '25px',
+                        height: '25px',
+                        fontWeight: 900,
+                      },
                     }}
-                    startIcon={<BsLink45Deg />}
                   >
+                    <BsLink45Deg />
                     <Link
                       href={data ? data.blog : '#'}
                       target='_blank'
@@ -331,15 +375,18 @@ export default function CardComponent() {
                       {data
                         ? data.blog === '' || data.blog === null
                           ? 'Not Available'
-                          : data.blog.length >= 19
-                          ? `${data.blog.slice(0, 19)}...`
+                          : data.blog.length >= 22
+                          ? `${data.blog.slice(0, 17)}...`
                           : data.blog
                         : 'https://github.blog'}
                     </Link>
-                  </Button>
+                  </Stack>
                 </Grid>
                 <Grid item xs={12} sm={5}>
-                  <Button
+                  <Stack
+                    direction='row'
+                    alignItems='center'
+                    spacing={2}
                     sx={{
                       color: `${
                         data
@@ -348,10 +395,25 @@ export default function CardComponent() {
                             : 'secondary.main'
                           : 'secondary.main'
                       }`,
+                      '& svg': {
+                        width: '25px',
+                        height: '25px',
+                      },
                     }}
-                    startIcon={<BsFillBuildingsFill />}
                   >
-                    <Typography
+                    <BsFillBuildingsFill />
+                    <Link
+                      href={
+                        data
+                          ? `https://github.com/${data.company.replace(
+                              '@',
+                              ''
+                            )}`
+                          : '#'
+                      }
+                      target='_blank'
+                      underline='hover'
+                      variant='h3'
                       color='inherit'
                       sx={{
                         fontSize: {
@@ -365,11 +427,11 @@ export default function CardComponent() {
                         ? data.company === null || data.company.length === 0
                           ? 'Not Available'
                           : data.company.length >= 15
-                          ? `${data.company.slice(0, 15)}...`
+                          ? `${data.company.slice(0, 11)}...`
                           : data.company
                         : '@github'}
-                    </Typography>
-                  </Button>
+                    </Link>
+                  </Stack>
                 </Grid>
               </Grid>
             </Grid>

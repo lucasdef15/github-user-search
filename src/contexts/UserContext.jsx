@@ -36,6 +36,7 @@ export const DataProvider = ({ children }) => {
         console.error(err.message);
       }
     }
+    console.log(data);
   };
 
   const formatDate = (dateString) => {
